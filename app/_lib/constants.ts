@@ -56,7 +56,7 @@ export const portfolioProjects = [
 		subheading: 'a modern item exchange app',
 		description:
 			'A modern mobile app for exchanging items locally and securely. Users can browse listings, add their own items, favorite offers, chat in real time, and verify their identity with OTP phone authentication. The app is built with React Native, TypeScript, Firebase, Zustand, and NativeWind.',
-		imageUrl: '/imgs/projects/portfolio-mockup1.jpg',
+		imageUrl: '/imgs/projects/portfolio-mockup1.png',
 		techStack: [
 			'ReactNative',
 			'Zustand',

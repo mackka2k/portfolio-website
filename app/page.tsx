@@ -35,12 +35,8 @@ const Homepage = () => {
 			<div className="max-w-7xl mx-auto w-full">
 				<Navbar navItems={navItems} />
 				<HeroSection />
-				<Suspense fallback={<div className="h-96" />}>
-					<Skills />
-				</Suspense>
-				<Suspense fallback={<div className="h-96" />}>
-					<ProjectsSection />
-				</Suspense>
+				<Skills />
+				<ProjectsSection />
 				{/* <Testimonials /> */}
 				<Footer />
 			</div>
