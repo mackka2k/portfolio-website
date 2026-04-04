@@ -83,6 +83,7 @@ const ProjectOverview = ({ params }: { params: { projectName: string } }) => {
 								width={2000}
 								height={1000}
 								alt="portfolio"
+								sizes="100vw"
 							/>
 						</div>
 

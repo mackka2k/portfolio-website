@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Raleway } from "next/font/google";
 import { ThemeProvider } from "./_components/ThemeProvider";
 
-const raleway = Raleway({ subsets: ["latin"] });
+const raleway = Raleway({ subsets: ["latin"], display: "swap" });
 
 const baseUrl = "https://evaldas-portfolio.com"; // Update with your actual domain
 const ogImage = `${baseUrl}/og-image.jpg`; // Add this image to public folder
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 	openGraph: {
 		type: "website",
 		url: baseUrl,
-		title: "Evaldas - Skilled Web Developer",
+		title: "Evaldas - Full-Stack Developer",
 		description:
 			"Explore my portfolio of innovative web applications built with React, Next.js, and modern technologies.",
 		images: [
