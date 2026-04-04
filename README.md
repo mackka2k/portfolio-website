@@ -1,5 +1,3 @@
-# Evaldas Mackonis – Developer Portfolio
-
 A modern, responsive portfolio website to showcase your projects, skills, and experience.
 
 ---
@@ -31,11 +29,5 @@ A modern, responsive portfolio website to showcase your projects, skills, and ex
 ## 📄 License
 
 MIT License. See [LICENSE](LICENSE) for details.
-
----
-
-## 📬 Contact
-
-For questions or collaboration, reach out via email: [mackonis777@gmail.com](mailto:mackonis777@gmail.com)
 
 ---
