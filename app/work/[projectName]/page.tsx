@@ -6,7 +6,7 @@ import { portfolioProjects } from "@/app/_lib/constants";
 import {
 	BriefcaseBusiness,
 	Code,
-	ContactIcon,
+	Contact as ContactIcon,
 	Globe,
 	House,
 	MoveDown,
