@@ -17,10 +17,12 @@ const TechCard = ({
       <div className={`p-3 ${bgColor} rounded-lg w-fit`}>
         <Image
           src={imageUrl}
-          width={1000}
-          height={1000}
+          width={32}
+          height={32}
           alt={`${name} logo`}
           className={`size-8 ${name === "NextJS" ? "dark:invert" : ""}`}
+          loading="lazy"
+          priority={false}
         />
       </div>
       <div>

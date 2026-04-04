@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /work/
+
+# Disallow crawling of administrative files and directories
+Disallow: /.next/
+Disallow: /node_modules/
+
+# Sitemap
+Sitemap: https://evaldas-portfolio.com/sitemap.xml
+
+# Crawl delay to be respectful to server
+Crawl-delay: 1

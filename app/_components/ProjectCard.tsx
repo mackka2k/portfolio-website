@@ -1,6 +1,6 @@
 "use client";
 
-import { MoveUpRight } from "lucide-react";
+import { MoveUpRight, Github } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import ProjectTechnologiesMini from "./ProjectTechnologiesMini";
@@ -19,7 +19,7 @@ interface ProjectProps {
 }
 
 const ProjectCard = ({ project }: { project: ProjectProps }) => {
-	const { id, heading, imageUrl, techStack } = project;
+	const { id, heading, imageUrl, techStack, sourceCodeUrl } = project;
 
 	return (
 		<motion.div
@@ -36,18 +36,34 @@ const ProjectCard = ({ project }: { project: ProjectProps }) => {
 					height={1000}
 					alt={heading}
 					className="hover:scale-110 transition-transform duration-700"
+					loading="lazy"
+					priority={false}
 				/>
 			</Link>
 			<div>
 				<h3 className="text-2xl sm:text-3xl font-semibold">{heading}</h3>
 				<div className="mt-4 flex flex-col sm:flex-row justify-between gap-5">
 					<ProjectTechnologiesMini techStack={techStack} />
-					<Link
-						href={`/work/${id}`}
-						className="p-3 bg-green-500 hover:bg-green-600 transition-colors duration-200 rounded-lg self-start sm:self-end"
-					>
-						<MoveUpRight className="size-5 sm:size-8 text-[#F3F4F3] dark:text-dark-200" />
-					</Link>
+					<div className="flex gap-3 self-start sm:self-end">
+						{sourceCodeUrl && (
+							<a
+								href={sourceCodeUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="p-3 bg-gray-700 hover:bg-gray-800 transition-colors duration-200 rounded-lg flex items-center gap-2"
+								title="View source code"
+							>
+								<Github className="size-5 sm:size-6" />
+								<span className="text-sm font-semibold hidden sm:inline">Code</span>
+							</a>
+						)}
+						<Link
+							href={`/work/${id}`}
+							className="p-3 bg-green-500 hover:bg-green-600 transition-colors duration-200 rounded-lg"
+						>
+							<MoveUpRight className="size-5 sm:size-8 text-[#F3F4F3] dark:text-dark-200" />
+						</Link>
+					</div>
 				</div>
 			</div>
 		</motion.div>

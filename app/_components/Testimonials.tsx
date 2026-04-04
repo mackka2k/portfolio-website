@@ -76,6 +76,8 @@ const Testimonials = () => {
             alt="avatar"
             width={60}
             height={60}
+            loading="lazy"
+            priority={false}
           />
         </div>
         <div>
