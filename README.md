@@ -39,5 +39,3 @@ MIT License. See [LICENSE](LICENSE) for details.
 For questions or collaboration, reach out via email: [mackonis777@gmail.com](mailto:mackonis777@gmail.com)
 
 ---
-
-Inspired by andrijaweb.
