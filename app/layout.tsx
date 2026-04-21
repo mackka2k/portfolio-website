@@ -1,20 +1,29 @@
 import "@/app/_styles/globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Raleway } from "next/font/google";
 import { ThemeProvider } from "./_components/ThemeProvider";
+import ThemeToggle from "./_components/ui/ThemeToggle";
+import ErrorBoundary from "./_components/ErrorBoundary";
+import { siteConfig } from "./_lib/constants";
 
 const raleway = Raleway({ subsets: ["latin"], display: "swap" });
 
-const baseUrl = "https://evaldas-portfolio.com"; // Update with your actual domain
-const ogImage = `${baseUrl}/og-image.jpg`; // Add this image to public folder
+export const viewport: Viewport = {
+	width: "device-width",
+	initialScale: 1,
+	themeColor: [
+		{ media: "(prefers-color-scheme: light)", color: "#ffffff" },
+		{ media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+	],
+};
 
 export const metadata: Metadata = {
+	metadataBase: new URL(siteConfig.url),
 	title: {
 		template: "Evaldas - %s",
-		default: "Evaldas - Skilled Web Developer",
+		default: siteConfig.title,
 	},
-	description:
-		"Evaldas Mackonis, full-stack web developer. Creating intuitive, visually stunning and highly functional web applications using React, Next.js, TypeScript, and modern web technologies.",
+	description: siteConfig.description,
 	keywords: [
 		"web developer",
 		"React",
@@ -25,21 +34,31 @@ export const metadata: Metadata = {
 		"portfolio",
 		"Evaldas",
 	],
-	authors: [{ name: "Evaldas Mackonis", url: baseUrl }],
-	creator: "Evaldas Mackonis",
-	publisher: "Evaldas Mackonis",
+	authors: [{ name: siteConfig.name, url: siteConfig.url }],
+	creator: siteConfig.name,
+	publisher: siteConfig.name,
 	alternates: {
-		canonical: baseUrl,
+		canonical: "/",
+	},
+	robots: {
+		index: true,
+		follow: true,
+		googleBot: {
+			index: true,
+			follow: true,
+			"max-image-preview": "large",
+			"max-snippet": -1,
+		},
 	},
 	openGraph: {
 		type: "website",
-		url: baseUrl,
+		url: siteConfig.url,
 		title: "Evaldas - Full-Stack Developer",
 		description:
 			"Explore my portfolio of innovative web applications built with React, Next.js, and modern technologies.",
 		images: [
 			{
-				url: ogImage,
+				url: siteConfig.ogImage,
 				width: 1200,
 				height: 630,
 				alt: "Evaldas Portfolio",
@@ -49,11 +68,21 @@ export const metadata: Metadata = {
 	},
 	twitter: {
 		card: "summary_large_image",
-		title: "Evaldas - Skilled Web Developer",
-		description:
-			"Explore my portfolio of innovative web applications.",
-		images: [ogImage],
+		title: siteConfig.title,
+		description: "Explore my portfolio of innovative web applications.",
+		images: [siteConfig.ogImage],
 	},
+};
+
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	name: siteConfig.name,
+	description: "Full-stack web developer specialized in React and Next.js",
+	url: siteConfig.url,
+	sameAs: [siteConfig.links.github, siteConfig.links.linkedin],
+	jobTitle: "Full-Stack Developer",
+	areaServed: "LT",
 };
 
 export default function RootLayout({
@@ -63,37 +92,21 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" suppressHydrationWarning>
-			<head>
-				{/* JSON-LD Schema Markup */}
-				<script
-					type="application/ld+json"
-					dangerouslySetInnerHTML={{
-						__html: JSON.stringify({
-							"@context": "https://schema.org",
-							"@type": "Person",
-							name: "Evaldas Mackonis",
-							description: "Full-stack web developer specialized in React and Next.js",
-							url: "https://evaldas-portfolio.com",
-							sameAs: [
-								"https://github.com/mackka2k",
-								"https://linkedin.com/in/evaldas", // Update with actual LinkedIn
-							],
-							jobTitle: "Full-Stack Developer",
-							areaServed: "LT",
-						}),
-					}}
-				/>
-			</head>
 			<body
 				className={`${raleway.className} antialiased bg-white dark:bg-dark-100 text-dark-200 dark:text-stone-200`}
 			>
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+				/>
 				<ThemeProvider
 					attribute="class"
 					defaultTheme="dark"
 					enableSystem
 					disableTransitionOnChange
 				>
-					{children}
+					<ErrorBoundary>{children}</ErrorBoundary>
+					<ThemeToggle />
 				</ThemeProvider>
 			</body>
 		</html>

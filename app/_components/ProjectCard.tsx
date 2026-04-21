@@ -1,43 +1,40 @@
 "use client";
 
-import { MoveUpRight, Github } from "lucide-react";
+import { Github, MoveUpRight } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import type { PortfolioProject } from "../_lib/constants";
 import ProjectTechnologiesMini from "./ProjectTechnologiesMini";
 
-import { motion } from "framer-motion";
-
-interface ProjectProps {
-	id: string;
-	heading: string;
-	subheading: string;
-	description: string;
-	imageUrl: string;
-	techStack: string[];
-	liveDemoUrl: string;
-	sourceCodeUrl: string;
+interface ProjectCardProps {
+	project: PortfolioProject;
 }
 
-const ProjectCard = ({ project }: { project: ProjectProps }) => {
+const ProjectCard = ({ project }: ProjectCardProps) => {
 	const { id, heading, imageUrl, techStack, sourceCodeUrl } = project;
+	const shouldReduceMotion = useReducedMotion();
 
 	return (
-		<motion.div
-			initial={{ opacity: 0, y: 75 }}
-			whileInView={{ opacity: 1, y: 0 }}
+		<motion.article
+			initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 75 }}
+			whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
 			viewport={{ once: true }}
 			transition={{ duration: 0.5, delay: 0.25 }}
 			className="bg-[#F3F4F3] dark:bg-dark-200 rounded-lg p-4 sm:p-8 space-y-8"
 		>
-			<Link href={`/work/${id}`} className="rounded-lg overflow-hidden block">
+			<Link
+				href={`/work/${id}`}
+				className="rounded-lg overflow-hidden block focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+				aria-label={`Open ${heading} project details`}
+			>
 				<Image
 					src={imageUrl}
 					width={1000}
 					height={1000}
-					alt={heading}
-					className="hover:scale-110 transition-transform duration-700"
+					alt={`${heading} project preview`}
+					className="hover:scale-110 transition-transform duration-700 motion-reduce:transition-none motion-reduce:hover:scale-100"
 					loading="lazy"
-					priority={false}
 					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 				/>
 			</Link>
@@ -51,23 +48,30 @@ const ProjectCard = ({ project }: { project: ProjectProps }) => {
 								href={sourceCodeUrl}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="p-3 bg-gray-700 hover:bg-gray-800 transition-colors duration-200 rounded-lg flex items-center gap-2"
-								title="View source code"
+								className="p-3 bg-gray-700 hover:bg-gray-800 transition-colors duration-200 rounded-lg flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+								title={`View ${heading} source code on GitHub`}
+								aria-label={`View ${heading} source code on GitHub`}
 							>
-								<Github className="size-5 sm:size-6" />
-								<span className="text-sm font-semibold hidden sm:inline">Code</span>
+								<Github className="size-5 sm:size-6" aria-hidden />
+								<span className="text-sm font-semibold hidden sm:inline text-white">
+									Code
+								</span>
 							</a>
 						)}
 						<Link
 							href={`/work/${id}`}
-							className="p-3 bg-green-500 hover:bg-green-600 transition-colors duration-200 rounded-lg"
+							className="p-3 bg-green-500 hover:bg-green-600 transition-colors duration-200 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500"
+							aria-label={`Open ${heading} project details`}
 						>
-							<MoveUpRight className="size-5 sm:size-8 text-[#F3F4F3] dark:text-dark-200" />
+							<MoveUpRight
+								className="size-5 sm:size-8 text-[#F3F4F3] dark:text-dark-200"
+								aria-hidden
+							/>
 						</Link>
 					</div>
 				</div>
 			</div>
-		</motion.div>
+		</motion.article>
 	);
 };
 
